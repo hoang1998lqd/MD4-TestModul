@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Human</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Jquery & Ajax -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <style>
+        h1, #action {
+            text-align: center;
+        }
+
+        #action {
+            width: 30%;
+        }
+
+        table {
+            margin-top: 10px;
+        }
+
+        th {
+            width: 20%;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        #search {
+            text-align: right;
+            float: right;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        span {
+            color: white;
+            font-weight: bold;
+        }
+
+        button {
+            border: none;
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        input {
+            border-radius: 4px;
+            width: 250px;
+        }
+
+    </style>
+</head>
+<body>
+<table style="width: 1450px; margin-left: 40px; height: 200px" class="table table-striped">
+    <tr>
+        <th style="width: 50px">STT</th>
+        <th>Tên thành phố</th>
+        <th>Diện tích</th>
+        <th>Dân số</th>
+        <th>GDP</th>
+        <th>Mô tả</th>
+        <th>Quốc gia</th>
+    </tr>
+    <tbody id="province">
+    </tbody>
+</table>
+
+<button><a style="color: red" href="home.html">Back to Home</a></button>
+</body>
+<script >
+    detail()
+    function detail(idHuman) {
+        idHuman = localStorage.getItem("idDetail")
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/provinces/" + idHuman,
+            success: function (data) {
+                let content = ""
+                content += "<tr>"
+                content += "<th>"+ 1 +"</th>"
+                content += "<th>"+ data.name +"</th>"
+                content += "<th>"+ data.area +" Km2</th>"
+                content += "<th>"+ data.population +" Người</th>"
+                content += "<th>"+ data.gdp +" VNĐ</th>"
+                content += "<th>"+ data.description +"</th>"
+                content += "<th>"+ data.country.name +"</th>"
+                content += "</tr>"
+                document.getElementById('province').innerHTML = content
+            }
+        })
+
+    }
+</script>
+</html>
