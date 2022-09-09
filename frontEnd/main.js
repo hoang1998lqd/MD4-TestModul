@@ -89,13 +89,28 @@ function createHuman() {
                 showConfirmButton: false,
                 timer: 1500
             })
-                setTimeout(openModalForm, 2500)
+            setTimeout(openModalForm, 2500)
             setTimeout(loadData, 3000);
 
+        },
+        error: function (data) {
+            if (data.status === 404 || data.status === 415 || data.status === 500) {
+                setTimeout(fail, 500)
+            } else {
+                setTimeout(fail, 500)
+            }
         }
     });
     //chặn sự kiện mặc định của thẻ
     event.preventDefault();
+}
+
+function fail(){
+    Swal.fire({
+        icon: 'error',
+        title: 'Lỗi...',
+        text: 'Tạo mới thất bại',
+    })
 }
 
 function openModalForm() { $('#myModal').modal('hide');}
